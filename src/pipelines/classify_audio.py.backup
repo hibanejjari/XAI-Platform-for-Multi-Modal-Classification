@@ -1,0 +1,112 @@
+"""
+Audio classification pipeline
+Handles complete workflow from input to prediction with XAI
+"""
+
+import torch
+import cv2
+import matplotlib.pyplot as plt
+from src.config import AUDIO_CLASSES, DEVICE
+from src.preprocessing.audio import preprocess_audio
+from src.models.manager import model_manager
+from src.models.audio_models import get_audio_target_layer
+from src.xai.gradcam import GradCAM
+from src.xai.shap_xai import apply_shap_audio
+
+
+def apply_gradcam_audio(model, input_tensor, mel_spec_original, model_name: str):
+    """
+    Apply Grad-CAM to audio classification.
+    
+    Args:
+        model: PyTorch model
+        input_tensor: Input tensor
+        mel_spec_original: Original mel-spectrogram for visualization
+        model_name: Name of the model
+        
+    Returns:
+        tuple: (matplotlib figure, explanation text)
+    """
+    target_layer = get_audio_target_layer(model, model_name)
+    if target_layer is None:
+        return None, "Grad-CAM not available for this model"
+
+    # Generate CAM
+    cam_engine = GradCAM(model, target_layer)
+    cam = cam_engine.generate_cam(input_tensor)
+    cam_engine.remove_hooks()
+
+    # Resize CAM to match original spectrogram size
+    cam_resized = cv2.resize(cam, (mel_spec_original.shape[1], mel_spec_original.shape[0]))
+
+    # Create visualization
+    fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+    
+    axes[0].imshow(mel_spec_original, aspect="auto", origin="lower", cmap="viridis")
+    axes[0].set_title("Original Mel-Spectrogram")
+    axes[0].axis("off")
+
+    axes[1].imshow(cam_resized, aspect="auto", origin="lower", cmap="jet")
+    axes[1].set_title("Grad-CAM Heatmap")
+    axes[1].axis("off")
+
+    axes[2].imshow(mel_spec_original, aspect="auto", origin="lower", cmap="viridis")
+    axes[2].imshow(cam_resized, aspect="auto", origin="lower", cmap="jet", alpha=0.5)
+    axes[2].set_title("Overlay")
+    axes[2].axis("off")
+
+    plt.tight_layout()
+    
+    return fig, "Grad-CAM visualization generated"
+
+
+def classify_audio(audio_file: str, model_name: str, xai_method: str):
+    """
+    Complete audio classification pipeline with XAI.
+    
+    Args:
+        audio_file: Path to audio file
+        model_name: Name of the classification model
+        xai_method: XAI method to apply ("Grad-CAM" or "SHAP")
+        
+    Returns:
+        tuple: (result_text, visualization_figure, explanation_text)
+    """
+    try:
+        # Preprocess audio to mel-spectrogram
+        mel_spec = preprocess_audio(audio_file)
+
+        # Prepare input tensor [1, 1, 128, 128]
+        x = torch.FloatTensor(mel_spec).unsqueeze(0).unsqueeze(0)
+
+        # VGG/MobileNet expect 3 channels
+        if model_name in ["MobileNet", "VGG16"]:
+            x = x.repeat(1, 3, 1, 1)
+
+        input_tensor = x.to(DEVICE)
+        
+        # Load model
+        model = model_manager.get_audio_model(model_name)
+
+        # Make prediction
+        with torch.no_grad():
+            output = model(input_tensor)
+            probs = torch.softmax(output, dim=1)
+            pred_class = int(output.argmax(dim=1).item())
+
+        # Format result
+        result = f"**Prediction:** {AUDIO_CLASSES[pred_class]}\n"
+        result += f"**Confidence:** Real: {probs[0][0]:.2%}, Fake: {probs[0][1]:.2%}"
+
+        # Apply XAI method
+        if xai_method == "Grad-CAM":
+            fig, txt = apply_gradcam_audio(model, input_tensor, mel_spec, model_name)
+            return result, fig, txt
+        elif xai_method == "SHAP":
+            fig, txt = apply_shap_audio(model, input_tensor)
+            return result, fig, txt
+
+        return result, None, ""
+        
+    except Exception as e:
+        return f"Error: {str(e)}", None, ""

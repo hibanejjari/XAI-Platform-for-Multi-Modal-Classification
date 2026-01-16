@@ -1,0 +1,11 @@
+Atelectasis
+Consolidation
+Pneumothorax
+Edema
+Effusion
+Pneumonia
+Cardiomegaly
+Lung Lesion
+Fracture
+Lung Opacity
+Enlarged Cardiomediastinum

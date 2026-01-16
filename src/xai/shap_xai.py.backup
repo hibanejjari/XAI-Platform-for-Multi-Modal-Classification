@@ -1,0 +1,69 @@
+"""
+SHAP (SHapley Additive exPlanations)
+Implementation for audio classification
+"""
+
+import torch
+import matplotlib.pyplot as plt
+
+try:
+    import shap
+    SHAP_AVAILABLE = True
+except ImportError:
+    shap = None
+    SHAP_AVAILABLE = False
+
+
+def apply_shap_audio(model, input_tensor):
+    """
+    Apply SHAP explanation to an audio classification model.
+    
+    Args:
+        model: PyTorch classification model
+        input_tensor: Input tensor (B, C, H, W)
+        
+    Returns:
+        tuple: (matplotlib figure, explanation text) or (None, error message)
+    """
+    if not SHAP_AVAILABLE:
+        return None, "SHAP not installed. Install: pip install shap"
+
+    try:
+        model.eval()
+
+        # Create background dataset (small but valid)
+        background = input_tensor.detach().clone().repeat(8, 1, 1, 1)
+
+        # Create SHAP explainer
+        explainer = shap.GradientExplainer(model, background)
+        
+        # Calculate SHAP values
+        shap_values = explainer.shap_values(input_tensor)
+
+        # Get predicted class
+        with torch.no_grad():
+            out = model(input_tensor)
+            pred = int(out.argmax(dim=1).item())
+
+        # Get SHAP values for predicted class
+        sv = shap_values[pred]     # (1, C, H, W)
+        sv_map = sv[0].mean(axis=0)  # Average over channels
+
+        # Create visualization
+        fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+        
+        axes[0].imshow(input_tensor[0, 0].detach().cpu().numpy(),
+                      aspect="auto", origin="lower", cmap="viridis")
+        axes[0].set_title("Input Spectrogram (ch0)")
+        axes[0].axis("off")
+
+        axes[1].imshow(sv_map, aspect="auto", origin="lower")
+        axes[1].set_title("SHAP values (audio)")
+        axes[1].axis("off")
+
+        plt.tight_layout()
+        
+        return fig, "SHAP computed with GradientExplainer"
+        
+    except Exception as e:
+        return None, f"SHAP unavailable: {str(e)}"

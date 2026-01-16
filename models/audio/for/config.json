@@ -1,0 +1,6 @@
+{
+  "sr": 16000,
+  "duration": 2.0,
+  "n_mels": 128,
+  "hop_length": 512
+}
