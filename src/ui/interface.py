@@ -248,8 +248,12 @@ This unified platform integrates two Explainable AI systems:
 2. **Comparison Tab:** Compare multiple XAI techniques on the same input
 3. View results, heatmaps, and explanations
 
-### 👥 Team Information 
-
+### Team Information 
+- Lisa NACCACHE
+- Hiba NEJJARI 
+- Neil MAHCER
+- Wendy DUONG 
+- Cyprien MOUTON 
 """
                 )
 

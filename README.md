@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🔬 Unified XAI Platform for Multi-Modal Classification
 
 An interactive platform that integrates **Audio Deepfake Detection** and **Lung Cancer Detection** with comprehensive Explainable AI (XAI) capabilities.
@@ -243,3 +244,7 @@ For issues or questions:
 ---
 
 **Built with ❤️ for Explainable AI Research**
+=======
+# XAI-Platform-for-Multi-Modal-Classification
+Integrating Audio Deepfake Detection and Chest X-ray Analysis with Explainability
+>>>>>>> 7def7da9370e4767765b7b142e74f9077c6a5f5f
