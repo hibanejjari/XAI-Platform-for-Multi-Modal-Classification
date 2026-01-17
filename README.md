@@ -1,250 +1,387 @@
-<<<<<<< HEAD
-# 🔬 Unified XAI Platform for Multi-Modal Classification
+# Unified XAI Platform for Multi-Modal Classification
 
-An interactive platform that integrates **Audio Deepfake Detection** and **Lung Cancer Detection** with comprehensive Explainable AI (XAI) capabilities.
+**Integrating Audio Deepfake Detection and Chest X-ray Analysis with Explainability**
+---
 
-## 📋 Overview
+## Team ( ESILV A5 : DIA4 '
 
-This project combines two state-of-the-art classification systems into a single, user-friendly interface:
-
-### 🎵 Audio: Deepfake Detection
-- **Models:** Custom CNN, MobileNet, VGG16
-- **Dataset:** Fake-or-Real (FoR)
-- **XAI Methods:** Grad-CAM, SHAP
-- **Task:** Distinguish between real and synthetic audio
-
-### 🫁 Image: Lung Cancer Detection
-- **Models:** AlexNet, DenseNet
-- **Dataset:** CheXpert chest X-rays
-- **XAI Methods:** Grad-CAM, LIME
-- **Task:** Identify malignant tumors in chest X-rays
-
-## ✨ Features
-
-- **Multi-Modal Support:** Process both audio (.wav) and image files
-- **Multiple Models:** Choose from various pre-trained architectures
-- **XAI Integration:** Understand model decisions with visual explanations
-- **Automatic Compatibility:** Only relevant XAI methods shown for each data type
-- **Side-by-Side Comparison:** Compare different XAI techniques simultaneously
-- **Interactive UI:** Built with Gradio for easy interaction
-
-## 🏗️ Project Structure
-
-```
-unified-xai-platform/
-│
-├── app.py                      # Main application entry point
-├── requirements.txt            # Python dependencies
-├── README.md                   # This file
-│
-├── src/                        # Source code
-│   ├── __init__.py
-│   ├── config.py              # Configuration and constants
-│   ├── utils.py               # Utility functions
-│   │
-│   ├── preprocessing/         # Data preprocessing modules
-│   │   ├── __init__.py
-│   │   ├── audio.py          # Audio preprocessing (mel-spectrograms)
-│   │   └── image.py          # Image preprocessing
-│   │
-│   ├── models/                # Model definitions and management
-│   │   ├── __init__.py
-│   │   ├── audio_models.py   # Audio classification models
-│   │   ├── image_models.py   # Image classification models
-│   │   └── manager.py        # Model loading and caching
-│   │
-│   ├── xai/                   # Explainable AI methods
-│   │   ├── __init__.py
-│   │   ├── gradcam.py        # Grad-CAM implementation
-│   │   ├── lime_xai.py       # LIME for images
-│   │   └── shap_xai.py       # SHAP for audio
-│   │
-│   ├── pipelines/             # End-to-end workflows
-│   │   ├── __init__.py
-│   │   ├── classify_audio.py # Audio classification pipeline
-│   │   ├── classify_image.py # Image classification pipeline
-│   │   └── compare.py        # XAI comparison workflow
-│   │
-│   └── ui/                    # User interface
-│       ├── __init__.py
-│       ├── components.py     # Reusable UI components
-│       └── interface.py      # Main Gradio interface
-│
-├── models/                    # Trained model weights (add your .pt/.pth files)
-│   ├── audio/
-│   └── image/
-│
-└── examples/                  # Example input files
-    ├── audio.wav
-    └── xray.png
-```
-
-## 🚀 Installation
-
-### Prerequisites
-- Python 3.8 or higher
-- pip package manager
-
-### Setup
-
-1. **Clone or extract the project:**
-```bash
-cd unified-xai-platform
-```
-
-2. **Create a virtual environment (recommended):**
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-3. **Install dependencies:**
-```bash
-pip install -r requirements.txt
-```
-
-4. **Add your trained models (optional):**
-   - Place audio model weights in `models/audio/`
-   - Place image model weights in `models/image/`
-
-## 💻 Usage
-
-### Running the Application
-
-```bash
-python app.py
-```
-
-The Gradio interface will launch in your default web browser at `http://localhost:7860`
-
-### Using the Interface
-
-#### Classification Tab
-1. Select data type (Audio or Image)
-2. Upload your file
-3. Choose a classification model
-4. Select an XAI method
-5. Click "Classify & Explain"
-6. View prediction results and XAI visualization
-
-#### Comparison Tab
-1. Select data type (Audio or Image)
-2. Upload your file
-3. Choose a classification model
-4. Click "Compare XAI Methods"
-5. View side-by-side comparison of all available XAI techniques
-
-## 🧠 XAI Methods
-
-### Grad-CAM (Gradient-weighted Class Activation Mapping)
-- **Available for:** Audio & Image
-- **What it shows:** Heatmap highlighting regions most important for prediction
-- **Use case:** Identify which parts of input influenced the model's decision
-
-### LIME (Local Interpretable Model-agnostic Explanations)
-- **Available for:** Image only
-- **What it shows:** Superpixel-based explanation of important regions
-- **Use case:** Understand local decision boundaries
-
-### SHAP (SHapley Additive exPlanations)
-- **Available for:** Audio only
-- **What it shows:** Feature importance based on game theory
-- **Use case:** Quantify contribution of different frequency bands
-
-## 🔧 Technical Details
-
-### Audio Processing
-- Converts audio files to mel-spectrograms (128x128)
-- Sample rate: 22,050 Hz
-- Duration: 3 seconds
-- Normalization: Z-score normalization
-
-### Image Processing
-- Resizes images to 224x224
-- RGB color space
-- ImageNet normalization (mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-
-### Model Architecture Adaptations
-- **Custom CNN:** Designed specifically for audio spectrograms
-- **MobileNet/VGG16:** Adapted for audio (3-channel replication)
-- **AlexNet/DenseNet:** Pre-trained on ImageNet, fine-tuned for medical imaging
-
-## 📊 Model Performance Notes
-
-The provided models are **demonstration versions** and may not have optimal accuracy. For production use:
-
-1. Train models on larger, domain-specific datasets
-2. Implement proper data augmentation
-3. Perform hyperparameter tuning
-4. Validate on held-out test sets
-
-## 🤝 Contributing
-
-This project is designed for educational purposes. To extend it:
-
-1. **Add new models:** Implement in `src/models/`
-2. **Add new XAI methods:** Implement in `src/xai/`
-3. **Support new data types:** Add preprocessing in `src/preprocessing/`
-4. **Enhance UI:** Modify `src/ui/interface.py`
-
-## 📝 Credits
-
-This platform integrates concepts from:
-- **Deepfake Audio Detection:** [Original Repository]
-- **Lung Cancer Detection:** [Original Repository]
-
-### Libraries Used
-- **Gradio:** Web UI framework
-- **PyTorch:** Deep learning framework
-- **Librosa:** Audio processing
-- **OpenCV:** Image processing
-- **LIME:** Explainable AI
-- **SHAP:** Explainable AI
-
-## 📄 License
-
-This project is for educational purposes. Please respect the licenses of individual components and datasets.
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-**"ModuleNotFoundError"**
-- Ensure all dependencies are installed: `pip install -r requirements.txt`
-
-**"CUDA out of memory"**
-- The code automatically falls back to CPU if CUDA is unavailable
-- Reduce batch size if processing multiple files
-
-**"Model not found"**
-- Models are initialized randomly if weights are not provided
-- Add your trained model weights to the `models/` directory
-
-**"LIME/SHAP not available"**
-- Install optional dependencies: `pip install lime shap scikit-image`
-
-## 📞 Support
-
-For issues or questions:
-1. Check the troubleshooting section
-2. Review the code documentation
-3. Examine the example files in `examples/`
-
-## 🎯 Future Enhancements
-
-- [ ] Add more model architectures (ResNet, EfficientNet, Transformers)
-- [ ] Support additional file formats (MP3, FLAC, DICOM)
-- [ ] Implement batch processing
-- [ ] Add model training capabilities
-- [ ] Export results to PDF/CSV
-- [ ] Add confidence calibration
-- [ ] Implement attention mechanisms
-- [ ] Add more XAI methods (Integrated Gradients, Occlusion)
+**Lisa NACCACHE** • **Hiba NEJJARI** • **Neil MAHCER** • **Wendy DUONG** • **Cyprien MOUTON**
 
 ---
 
-**Built with ❤️ for Explainable AI Research**
-=======
-# XAI-Platform-for-Multi-Modal-Classification
-Integrating Audio Deepfake Detection and Chest X-ray Analysis with Explainability
->>>>>>> 7def7da9370e4767765b7b142e74f9077c6a5f5f
+## Table of Contents
+
+- [Overview](#overview)
+- [Demo](#demo)
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [Usage](#usage)
+- [Project Status](#project-status)
+- [Technical Details](#technical-details)
+- [Known Issues](#known-issues)
+- [AI Usage Declaration](#ai-usage-declaration)
+- [References](#references)
+
+---
+
+## Overview
+We developed a unified interactive platform that integrates two explainable AI (XAI) systems—audio deepfake detection and lung cancer detection from medical images—into a single interface. The application is organized into two main tabs:
+- a **Classification page** where users select the input type (audio or image), choose a pretrained model, and apply an appropriate XAI technique to visualize the explanation alongside the prediction
+- an **XAI Comparison page** that enables side-by-side visualization of different XAI methods for the same model and input; it's an interface layer that automatically manages compatibility by filtering out XAI techniques that are not applicable to the selected data modality and that allows to see details of the selected method. The platform supports multiple models and required XAI methods (Grad-CAM, LIME, SHAP) respectively to the input and model chosen ( VGG16, MobileNet, Custom CNN, FoR Keras (TensorFlow) for audios and XRV DenseNet121 (CheXpert), AlexNet, DenseNet for images) .
+
+### Technologies Used
+
+**Deep Learning Models**  
+VGG16, MobileNetV2, Custom CNN, DenseNet121, AlexNet, XRV DenseNet121 (TorchXRayVision), FoR Keras Model (TensorFlow/Keras)
+
+**Explainable AI (XAI) Techniques**  
+Grad-CAM, LIME, SHAP (dual implementations for PyTorch and TensorFlow/Keras)
+
+**Programming Languages & Libraries**
+
+- **Core**: Python 3.8+  
+- **Deep Learning**: PyTorch 2.0+ (primary), TensorFlow 2.13+, Keras, torchvision 0.15+, TorchXRayVision 1.2+  
+- **Audio Processing**: Librosa 0.10+ (mel-spectrogram generation)  
+- **Image Processing**: OpenCV 4.8+ (cv2), Pillow 10.0+, scikit-image 0.21+  
+- **XAI Libraries**: LIME 0.2+, SHAP 0.42+  
+- **Scientific Computing & Visualization**: NumPy 1.24+, Matplotlib 3.7+  
+
+**Web Application Framework**  
+Gradio 4.0+ 
+
+**Datasets**  
+- **Fake-or-Real (FoR)**: Audio deepfake detection dataset used for Keras model training  
+- **CheXpert**: Chest X-ray pathology detection dataset (224,316 images, 14 pathology labels) used with XRV DenseNet121
+
+**Development & Sources**  
+- Deepfake Audio Detection with XAI (GitHub): https://github.com/Guri10/Deepfake-Audio-Detection-with-XAI  
+- Lung Cancer Detection (GitHub): https://github.com/schaudhuri16/LungCancerDetection  
+- TorchXRayVision: https://github.com/mlmed/torchxrayvision  
+- FoR Dataset (Kaggle): https://www.kaggle.com/datasets/mohammedabdeldayem/the-fake-or-real-dataset  
+- CheXpert Dataset (Stanford ML Group): https://www.kaggle.com/datasets/ashery/chexpert
+
+
+  
+
+### 🫁 Image: Lung Cancer Detection  
+- **Source**: [Lung Cancer Detection](https://github.com/source-repo-2)
+- **Dataset**: CheXpert chest X-rays
+- **Models**: XRV DenseNet121 (CheXpert), AlexNet, DenseNet
+- **XAI**: Grad-CAM ✅, LIME ⚠️
+
+### Key Improvements
+- ✅ **Unified Interface**: Single Gradio app (migrated from Streamlit for Python 3.13 compatibility)
+- ✅ **Dual Framework**: PyTorch + TensorFlow/Keras support
+- ✅ **Auto-Compatibility**: XAI methods filtered by input type
+- ✅ **Comparison Mode**: Side-by-side XAI visualization
+
+---
+
+## 🎥 Demo
+
+**[📺 Watch Demo Video](YOUR_VIDEO_LINK_HERE)**
+
+---
+
+## ✨ Features
+
+| Feature | Audio | Image | Status |
+|---------|-------|-------|--------|
+| **Classification** | ✅ | ✅ | Working |
+| **Grad-CAM** | ✅ | ✅ | Fully functional |
+| **SHAP** | ✅ | ⏳ | Audio only |
+| **LIME** | ✅ | ❌ | Image has channel error |
+| **Comparison Tab** | ✅ | ⚠️ | Grad-CAM only for images |
+
+---
+
+## 🚀 Quick Start
+
+### Installation
+
+```bash
+# Clone repository
+git clone https://github.com/YOUR_REPO/unified-xai-platform.git
+cd unified-xai-platform
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run application
+python app.py
+```
+
+**Requirements**: Python 3.8-3.13, 8GB+ RAM
+
+### Configuration
+
+Edit `src/config.py` to customize models, paths, and XAI compatibility:
+
+```python
+# Model paths
+AUDIO_KERAS_MODEL_PATH = "models/audio/for/audio_classifier.keras"
+XRV_IMAGE_WEIGHTS_PATH = "models/image/xrv-densenet121-res224-chex.pth"
+
+# XAI compatibility mapping
+XAI_COMPATIBILITY = {
+    "Audio": {
+        "Custom CNN": ["Grad-CAM", "SHAP", "LIME"],
+        "VGG16": ["Grad-CAM", "SHAP", "LIME"],
+        # ...
+    },
+    "Image": {
+        "XRV DenseNet121 (CheXpert)": ["Grad-CAM", "LIME"],
+        # ...
+    }
+}
+```
+
+---
+
+## 💻 Usage
+
+### Classification Tab
+1. Select **Audio** or **Image**
+2. Upload file (`.wav` or chest X-ray image)
+3. Choose model (e.g., VGG16 for audio, XRV DenseNet121 for images)
+4. Select XAI method
+5. Click **Classify & Explain**
+
+**Working Example**:
+```
+Audio: Custom CNN + Grad-CAM ✅
+→ Prediction: Real (99.99%), 3-panel visualization
+```
+
+### Comparison Tab
+1. Upload file
+2. Select model
+3. Click **Compare XAI Methods**
+4. View all compatible methods side-by-side
+
+**Working Example**:
+```
+Audio: VGG16 → Grad-CAM + SHAP + LIME ✅
+Image: XRV DenseNet121 → Grad-CAM only ⚠️ (LIME broken)
+```
+
+---
+
+## 🚧 Project Status
+
+### ✅ Working Features
+
+**Audio Classification** (Fully Functional)
+- PyTorch models: Custom CNN, VGG16, MobileNetV2 ✅
+- All XAI methods working: Grad-CAM, SHAP, LIME ✅
+- Comparison tab functional ✅
+
+**Image Classification** (Partial)
+- XRV DenseNet121 loads and predicts ✅
+- Grad-CAM works perfectly ✅
+- Shows predictions (generic labels) ⚠️
+
+### ⚠️ In Progress
+
+**FoR Keras Model** (Audio - TensorFlow)
+- File: `audio_classifier.keras` (11 MB)
+- Status: Architecture ready, **not trained yet**
+- Issue: Random predictions (training required)
+
+**XRV DenseNet121** (Image - PyTorch)  
+- File: `xrv-densenet121-res224-chex.pth` (27.8 MB)
+- Status: Weights exported, **training incomplete**
+- Issues:
+  - Generic labels (`Pathology_16` instead of `Cardiomegaly`)
+  - LIME fails with channel mismatch
+
+---
+
+## 📊 Technical Details
+
+### Design Decisions
+
+**1. Streamlit → Gradio Migration**
+- Better Python 3.13 support
+- Built-in ML components
+- Faster development
+
+**2. Dual Framework Architecture**
+```
+PyTorch Models → PyTorch XAI (gradcam.py, shap_xai.py, lime_audio.py)
+TensorFlow Models → TF XAI (gradcam_tf.py, shap_audio_tf.py, lime_audio_tf.py)
+```
+
+**3. Model Management**
+- Centralized `ModelManager` with caching
+- Lazy loading for memory efficiency
+- Automatic framework detection
+
+### XAI Implementation
+
+| Method | Framework | Speed | Accuracy | Status |
+|--------|-----------|-------|----------|--------|
+| **Grad-CAM** | PyTorch + TF | ⚡ Fast (1-4s) | ⭐⭐⭐ | ✅ All models |
+| **LIME** | PyTorch + TF | 🐌 Slow (10-20s) | ⭐⭐ | ✅ Audio, ❌ Image |
+| **SHAP** | PyTorch + TF | 🐢 Very Slow (30-60s) | ⭐⭐⭐ | ✅ Audio only |
+
+### Improvements Over Original Repos
+
+1. ✅ **Unified Platform**: Single interface vs. separate projects
+2. ✅ **Auto-Compatibility**: Dynamic XAI filtering
+3. ✅ **Dual Framework**: PyTorch + TensorFlow integration
+4. ✅ **Better UX**: Modern Gradio UI with comparison mode
+5. ✅ **Error Handling**: Comprehensive fallbacks and validation
+6. ✅ **Model Caching**: Faster repeated inference
+
+---
+
+## ⚠️ Known Issues
+
+### 🔴 Critical
+
+**Image LIME Channel Error**
+```
+LIME failed: expected input to have 1 channels, but got 3 channels instead
+```
+- **Cause**: XRV model expects grayscale, LIME passes RGB
+- **Impact**: Image LIME unusable, comparison limited
+- **Fix**: In progress (`classify_image_COMPLETE_FIX.py`)
+
+### 🟡 Medium
+
+**Generic Pathology Labels**
+```
+Top predicted pathologies:
+- Pathology_16: 84.80%  ❌ Should be "Cardiomegaly"
+- Pathology_7: 80.66%   ❌ Should be "Edema"
+```
+- **Cause**: Model training incomplete, label mismatch
+- **Impact**: Unclear which pathology is which
+- **Workaround**: Use Grad-CAM for localization
+
+**FoR Keras Untrained**
+- Model file present but weights random
+- Predictions unreliable
+- Requires FoR dataset training
+
+### 🟢 Minor
+
+- Windows asyncio warnings (cosmetic)
+- SHAP/LIME slow (reduce samples for speed)
+
+### Fixes Provided
+
+See `EMERGENCY_PATCH.md` for detailed fixes:
+1. `classify_audio_CORRECTED.py` - TensorFlow XAI integration
+2. `classify_image_COMPLETE_FIX.py` - Label fix + LIME prep
+3. `gradcam_tf_FIXED.py` - Keras model building fix
+4. `compare_FIXED.py` - Compatibility filtering
+
+---
+
+## 🤖 AI Usage Declaration
+
+### Generative AI Tools Used
+
+**Tool**: Claude 3.5 Sonnet (Anthropic)
+
+**Purpose**:
+- ✅ Code debugging and error resolution
+- ✅ XAI implementation guidance (Grad-CAM, LIME, SHAP)
+- ✅ Framework integration (PyTorch ↔ TensorFlow)
+- ✅ Documentation writing
+- ✅ Bug fix generation (channel mismatch, label errors)
+
+**What We Did Ourselves**:
+- ✅ Project architecture design
+- ✅ Model selection and integration decisions
+- ✅ UI/UX design and workflow
+- ✅ Testing and validation
+- ✅ Dataset understanding and preprocessing
+
+**Transparency Statement**: 
+All AI-generated code was reviewed, tested, and adapted to our specific requirements. We understand the implementation and can explain all design decisions.
+
+---
+
+## 📚 References
+
+### Original Repositories
+1. [Deepfake Audio Detector with XAI](https://github.com/source-audio-repo)
+2. [Lung Cancer Detection](https://github.com/source-image-repo)
+
+### Datasets
+- **FoR (Fake-or-Real)**: Audio deepfake dataset
+- **CheXpert**: 224,316 chest X-rays with 14 pathology labels
+
+### XAI Papers
+- **Grad-CAM**: Selvaraju et al. (ICCV 2017) - [arXiv:1610.02391](https://arxiv.org/abs/1610.02391)
+- **LIME**: Ribeiro et al. (KDD 2016) - [arXiv:1602.04938](https://arxiv.org/abs/1602.04938)
+- **SHAP**: Lundberg & Lee (NeurIPS 2017) - [arXiv:1705.07874](https://arxiv.org/abs/1705.07874)
+
+### Libraries
+- **Gradio**: Web UI framework
+- **TorchXRayVision**: Medical imaging models
+- **PyTorch** + **TensorFlow**: Deep learning frameworks
+
+---
+
+## 📁 Project Structure
+
+```
+unified-xai-platform/
+├── app.py                    # Entry point
+├── requirements.txt
+├── src/
+│   ├── config.py            # ⚙️ Configuration
+│   ├── preprocessing/       # Audio/image preprocessing
+│   ├── pipelines/           # Classification + XAI workflows
+│   ├── xai/                 # Grad-CAM, LIME, SHAP (PyTorch + TF)
+│   └── ui/                  # Gradio interface
+├── models/
+│   ├── audio/for/           # FoR Keras (11 MB, untrained)
+│   ├── image/               # XRV DenseNet121 (27.8 MB, partial)
+│   ├── audio_models.py      # PyTorch audio models
+│   ├── image_models.py      # PyTorch image models
+│   └── manager.py           # Model loading
+└── tools/                   # Model generation scripts
+```
+
+---
+
+## 🎯 Future Work
+
+**Immediate**:
+- [ ] Train FoR Keras on FoR dataset
+- [ ] Complete XRV DenseNet121 training
+- [ ] Fix image LIME channel issue
+
+**Planned**:
+- [ ] Add more XAI methods (Integrated Gradients, SmoothGrad)
+- [ ] Batch processing mode
+- [ ] Export to PDF reports
+- [ ] Docker deployment
+
+---
+
+## 📄 License
+
+MIT License - Copyright (c) 2026 DIA4 Team
+
+---
+
+<div align="center">
+
+**Made with ❤️ by DIA4**
+
+*Explainable AI for Audio & Medical Imaging*
+
+[![Python](https://img.shields.io/badge/Python-3.8--3.13-blue.svg)](https://www.python.org/)
+[![Gradio](https://img.shields.io/badge/Gradio-4.0+-orange.svg)](https://gradio.app/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.13+-orange.svg)](https://tensorflow.org/)
+
+[⬆ Back to Top](#-unified-xai-platform-for-multi-modal-classification)
+
+</div>
