@@ -31,11 +31,11 @@ We developed a unified interactive platform that integrates two explainable AI (
 
 The platform supports multiple models and required XAI methods (Grad-CAM, LIME, SHAP) respectively to the input type and model chosen ( VGG16, MobileNet, Custom CNN, FoR Keras (TensorFlow) for audios and XRV DenseNet121 (CheXpert), AlexNet, DenseNet for images) .
 
+The goal of this project is to gain practical experience with Explainable AI (XAI) for audio and image data, while introducing a multi-modal framework designed for future extensibilit. whether its through the models used or to support additional input types .
 ### Technologies Used
 
 - **Deep Learning Models**: VGG16, MobileNetV2, Custom CNN, DenseNet121, AlexNet  
   *(additional models explored: XRV DenseNet121 (TorchXRayVision), FoR Keras model)*
-
 
 - **Explainable AI (XAI) Techniques**  : Grad-CAM, LIME, SHAP
 
