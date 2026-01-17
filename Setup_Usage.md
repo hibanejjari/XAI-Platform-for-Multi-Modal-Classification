@@ -4,7 +4,7 @@
 
 ```bash
 # Clone repository
-git clone https://github.com/YOUR_REPO/unified-xai-platform.git
+git clone https://github.com/hibanejjari/XAI-Platform-for-Multi-Modal-Classification.git
 cd unified-xai-platform
 
 # Install dependencies
