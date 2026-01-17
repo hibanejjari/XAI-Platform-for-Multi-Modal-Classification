@@ -3,7 +3,7 @@
 **Integrating Audio Deepfake Detection and Chest X-ray Analysis with Explainability**
 ---
 
-## Team ( ESILV A5 : DIA4 '
+## Team ( ESILV A5 : DIA4 )
 
 **Lisa NACCACHE** • **Hiba NEJJARI** • **Neil MAHCER** • **Wendy DUONG** • **Cyprien MOUTON**
 
@@ -25,40 +25,25 @@
 ---
 
 ## Overview
-We developed a unified interactive platform that integrates two explainable AI (XAI) systems—audio deepfake detection and lung cancer detection from medical images—into a single interface. The application is organized into two main tabs:
+We developed a unified interactive platform that integrates two explainable AI (XAI) systems, audio deepfake detection and lung cancer detection from medical images, into a single interface. The application is organized into two main tabs:
 - a **Classification page** where users select the input type (audio or image), choose a pretrained model, and apply an appropriate XAI technique to visualize the explanation alongside the prediction
-- an **XAI Comparison page** that enables side-by-side visualization of different XAI methods for the same model and input; it's an interface layer that automatically manages compatibility by filtering out XAI techniques that are not applicable to the selected data modality and that allows to see details of the selected method. The platform supports multiple models and required XAI methods (Grad-CAM, LIME, SHAP) respectively to the input and model chosen ( VGG16, MobileNet, Custom CNN, FoR Keras (TensorFlow) for audios and XRV DenseNet121 (CheXpert), AlexNet, DenseNet for images) .
+- an **XAI Comparison page** that enables side-by-side visualization of different XAI methods for the model chosen based on the input -> it's an interface layer that automatically manages compatibility by filtering out XAI techniques that are not applicable to the selected data modality and that allows to see details of the selected method.
+
+The platform supports multiple models and required XAI methods (Grad-CAM, LIME, SHAP) respectively to the input type and model chosen ( VGG16, MobileNet, Custom CNN, FoR Keras (TensorFlow) for audios and XRV DenseNet121 (CheXpert), AlexNet, DenseNet for images) .
 
 ### Technologies Used
 
-**Deep Learning Models**  
-VGG16, MobileNetV2, Custom CNN, DenseNet121, AlexNet, XRV DenseNet121 (TorchXRayVision), FoR Keras Model (TensorFlow/Keras)
+- **Deep Learning Models**: VGG16, MobileNetV2, Custom CNN, DenseNet121, AlexNet  
+  *(additional models explored: XRV DenseNet121 (TorchXRayVision), FoR Keras model)*
 
-**Explainable AI (XAI) Techniques**  
-Grad-CAM, LIME, SHAP (dual implementations for PyTorch and TensorFlow/Keras)
 
-**Programming Languages & Libraries**
+- **Explainable AI (XAI) Techniques**  : Grad-CAM, LIME, SHAP
 
-- **Core**: Python 3.8+  
-- **Deep Learning**: PyTorch 2.0+ (primary), TensorFlow 2.13+, Keras, torchvision 0.15+, TorchXRayVision 1.2+  
-- **Audio Processing**: Librosa 0.10+ (mel-spectrogram generation)  
-- **Image Processing**: OpenCV 4.8+ (cv2), Pillow 10.0+, scikit-image 0.21+  
-- **XAI Libraries**: LIME 0.2+, SHAP 0.42+  
-- **Scientific Computing & Visualization**: NumPy 1.24+, Matplotlib 3.7+  
+- **Programming & Libraries**: Python, PyTorch, TensorFlow/Keras, Pillow, OpenCV (cv2), NumPy, Matplotlib
+  
+- **Datasets**: Fake-or-Real (Kaggle, audio deepfake), CheXpert (Stanford ML Group chest X-rays)
 
-**Web Application Framework**  
-Gradio 4.0+ 
-
-**Datasets**  
-- **Fake-or-Real (FoR)**: Audio deepfake detection dataset used for Keras model training  
-- **CheXpert**: Chest X-ray pathology detection dataset (224,316 images, 14 pathology labels) used with XRV DenseNet121
-
-**Development & Sources**  
-- Deepfake Audio Detection with XAI (GitHub): https://github.com/Guri10/Deepfake-Audio-Detection-with-XAI  
-- Lung Cancer Detection (GitHub): https://github.com/schaudhuri16/LungCancerDetection  
-- TorchXRayVision: https://github.com/mlmed/torchxrayvision  
-- FoR Dataset (Kaggle): https://www.kaggle.com/datasets/mohammedabdeldayem/the-fake-or-real-dataset  
-- CheXpert Dataset (Stanford ML Group): https://www.kaggle.com/datasets/ashery/chexpert
+- **Web Application Framework**: Gradio 4.0+
 
 
   
@@ -373,6 +358,17 @@ MIT License - Copyright (c) 2026 DIA4 Team
 
 <div align="center">
 
+
+- **Datasets**  :
+- **Fake-or-Real (FoR)**: Audio deepfake detection dataset used for Keras model training  
+- **CheXpert**: Chest X-ray pathology detection dataset (224,316 images, 14 pathology labels) used with XRV DenseNet121
+- 
+- **Development & Sources**  
+- Deepfake Audio Detection with XAI (GitHub): https://github.com/Guri10/Deepfake-Audio-Detection-with-XAI  
+- Lung Cancer Detection (GitHub): https://github.com/schaudhuri16/LungCancerDetection  
+- TorchXRayVision: https://github.com/mlmed/torchxrayvision  
+- FoR Dataset (Kaggle): https://www.kaggle.com/datasets/mohammedabdeldayem/the-fake-or-real-dataset  
+- CheXpert Dataset (Stanford ML Group): https://www.kaggle.com/datasets/ashery/chexpert
 **Made with ❤️ by DIA4**
 
 *Explainable AI for Audio & Medical Imaging*
