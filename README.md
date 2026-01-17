@@ -45,19 +45,27 @@ The goal of this project is to gain practical experience with Explainable AI (XA
 
 - **Web Application Framework**: Gradio 4.0+
 
+## Quick Start
 
+For detailed installation instructions, configuration options, and usage examples, please see **[SETUP.md](SETUP.md)**.
 
-### Key Improvements 
-- ✅ **Unified Interface**: Single Gradio app (migrated from Streamlit for Python 3.13 compatibility)
-- ✅ **Dual Framework**: PyTorch + TensorFlow/Keras support
-- ✅ **Auto-Compatibility**: XAI methods filtered by input type
-- ✅ **Comparison Mode**: Side-by-side XAI visualization
+**Quick Overview:**
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Run application
+python app.py
+```
+
+Interface launches at `http://127.0.0.1:7860`
 
 ---
 
-## 🎥 Demo
+## Demo
 
-**[📺 Watch Demo Video](YOUR_VIDEO_LINK_HERE)**
+To view the demonstration video, open the file below.
+[Watch the demo video](demo.mp4)
 
 ---
 
