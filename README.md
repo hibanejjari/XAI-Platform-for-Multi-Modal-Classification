@@ -64,7 +64,7 @@ Interface launches at `http://127.0.0.1:7860`
 
 ## Demo
 
-To view the demonstration video, open the file below.
+To view the demonstration video, open and download the mp4 file.
 [Watch the demo video](demo.mp4)
 
 ---
