@@ -46,15 +46,8 @@ The goal of this project is to gain practical experience with Explainable AI (XA
 - **Web Application Framework**: Gradio 4.0+
 
 
-  
 
-### 🫁 Image: Lung Cancer Detection  
-- **Source**: [Lung Cancer Detection](https://github.com/source-repo-2)
-- **Dataset**: CheXpert chest X-rays
-- **Models**: XRV DenseNet121 (CheXpert), AlexNet, DenseNet
-- **XAI**: Grad-CAM ✅, LIME ⚠️
-
-### Key Improvements
+### Key Improvements 
 - ✅ **Unified Interface**: Single Gradio app (migrated from Streamlit for Python 3.13 compatibility)
 - ✅ **Dual Framework**: PyTorch + TensorFlow/Keras support
 - ✅ **Auto-Compatibility**: XAI methods filtered by input type
