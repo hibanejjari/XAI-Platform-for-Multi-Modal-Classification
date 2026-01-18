@@ -43,10 +43,12 @@ XAI_COMPATIBILITY = {
 
 ## User guide to the application
 
+
+
 ### Classification Tab
 1. Select **Audio** or **Image**
 2. Upload or drag/drop file (`.wav` or chest X-ray image)
-3. Choose model from drop down menu (like VGG16 for audio, DensNet for images)
+3. Choose model from the automatically filtered dropdown(like VGG16 for audio, DensNet for images)
 4. Select XAI method from drop down
 5. Click **Classify & Explain**
 
@@ -58,7 +60,7 @@ Audio: Custom CNN + Grad-CAM
 
 ### Comparison Tab
 1. Select **Audio** or **Image** upload or drag/drop file (`.wav` or chest X-ray image)
-2. Select model from drop down
+2. Select model from the automatically filtered dropdown
 3. Click **Compare XAI Methods**
 4. View all detailed compatible methods by clicking underneath the image
 
