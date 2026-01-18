@@ -43,7 +43,7 @@ XAI_COMPATIBILITY = {
 
 ## User guide to the application
 
-
+If needed, sample audio files and images for testing are available in the **[Testing](./Testing)** folder and can be downloaded to try out the application.
 
 ### Classification Tab
 1. Select **Audio** or **Image**
