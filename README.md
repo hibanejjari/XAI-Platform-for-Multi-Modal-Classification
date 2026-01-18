@@ -58,7 +58,7 @@ The goal of this project is to gain practical experience with Explainable AI (XA
 
 ## Quick Start
 
-For detailed installation instructions, configuration options, and usage examples, please see **[SETUP.md](SETUP.md)**.
+For detailed installation instructions, configuration options, as well as usage guide and usage examples, please see **[Setup_Usage.md](SETUP.md)**.
 
 **Quick Overview:**
 ```bash
